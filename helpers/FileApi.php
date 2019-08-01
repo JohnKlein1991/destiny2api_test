@@ -11,7 +11,11 @@ class FileApi implements IFileAPI
     public function readFromFile()
     {
         $result = [];
-        $file = fopen(__DIR__ .'/'. $this->config['inputFileName'], 'r');
+        $filePath = ROOT . $this->config['inputFile'];
+        if (!is_file($filePath)){
+            return false;
+        }
+        $file = fopen($filePath, 'r');
         while ($line = fgets($file)){
             $result[] = trim($line);
         }
@@ -19,7 +23,8 @@ class FileApi implements IFileAPI
     }
     public function writeToFile($user, $result)
     {
-        $file = fopen(__DIR__ .'/'. $this->config['outputFileName'], 'a');
+        $filePath = ROOT . $this->config['outputFile'];
+        $file = fopen($filePath, 'a');
         fwrite($file, "$user - $result".PHP_EOL);
     }
 }

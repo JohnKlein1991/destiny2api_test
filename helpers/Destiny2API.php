@@ -37,7 +37,7 @@ class Destiny2API implements ICheckHasItem
     {
         $url = $this->config['urlSearchDestinyPlayer'].rawurlencode($user).'/';
         $result = $this->makeRequest($url);
-        if(!$result['Response']){
+        if(!isset($result['Response'])){
             return false;
         }
         return $result;
@@ -55,7 +55,7 @@ class Destiny2API implements ICheckHasItem
         }
         return $result;
     }
-    private function makeRequest(string $url)
+    private function makeRequest($url)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
